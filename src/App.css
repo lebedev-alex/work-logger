@@ -1,3 +1,24 @@
-/* bg-main: #0e1621; */
-/* bg-secondary: #182533; */
-/* font-color: #aec0d3; */
+:root {
+  --bg-main: #0e1621;
+  --bg-secondary: #182533;
+  --font-color: #aec0d3;
+}
+
+html {
+  background-color: var(--bg-main);
+}
+
+nav,
+.collection.with-header .collection-header,
+.collection.with-header .collection-item {
+  background-color: var(--bg-secondary);
+}
+
+.collection.with-header .collection-header,
+.modal-trigger {
+  color: var(--font-color);
+}
+
+h4 {
+  margin-top: 0.912rem;
+}
