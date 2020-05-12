@@ -3,6 +3,7 @@ import 'materialize-css/dist/css/materialize.min.css';
 import M from 'materialize-css/dist/js/materialize.min.js';
 import { Searchbar } from './components/layout/Searchbar';
 import { Logs } from './components/logs/Logs';
+import './App.css';
 
 const App = () => {
   useEffect(() => {
