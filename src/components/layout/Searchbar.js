@@ -1,7 +1,7 @@
 import React from 'react';
 
 export const Searchbar = () => (
-  <nav style={{ marginBottom: '30px' }} className="#448aff blue accent-2">
+  <nav>
     <div className="nav-wrapper">
       <form>
         <div className="input-field">
