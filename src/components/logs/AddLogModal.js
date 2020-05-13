@@ -12,6 +12,9 @@ const AddLogModal = () => {
       M.toast({ html: 'Please enter a message and worker' });
     } else {
       console.log(message, worker, attention);
+      setMessage('');
+      setWorker('');
+      setAttention(false);
     }
   };
 
