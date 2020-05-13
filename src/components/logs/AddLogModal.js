@@ -40,6 +40,7 @@ const AddLogModal = () => {
                 name="worker"
                 value={worker}
                 className="browser-default"
+                onChange={e => setWorker(e.target.value)}
                 onBlur={e => setWorker(e.target.value)}
               >
                 <option value="" disabled>
@@ -61,6 +62,7 @@ const AddLogModal = () => {
                   className="filled-in"
                   checked={attention}
                   value={attention}
+                  onChange={() => setAttention(!attention)}
                   onBlur={() => setAttention(!attention)}
                 />
                 <span>Needs Attention</span>

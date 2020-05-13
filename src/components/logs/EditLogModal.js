@@ -29,6 +29,7 @@ const EditLogModal = () => {
               name="message"
               value={message}
               onChange={e => setMessage(e.target.value)}
+              onBlur={e => setMessage(e.target.value)}
             />
             <label htmlFor="message" className="active">
               Log Message
@@ -40,6 +41,7 @@ const EditLogModal = () => {
                 name="worker"
                 value={worker}
                 className="browser-default"
+                onChange={e => setWorker(e.target.value)}
                 onBlur={e => setWorker(e.target.value)}
               >
                 <option value="" disabled>
@@ -61,6 +63,7 @@ const EditLogModal = () => {
                   className="filled-in"
                   checked={attention}
                   value={attention}
+                  onChange={() => setAttention(!attention)}
                   onBlur={() => setAttention(!attention)}
                 />
                 <span>Needs Attention</span>
