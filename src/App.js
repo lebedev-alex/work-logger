@@ -5,6 +5,9 @@ import { Searchbar } from './components/layout/Searchbar';
 import { Logs } from './components/logs/Logs';
 import { AddButton } from './components/layout/AddButton';
 import AddLogModal from './components/logs/AddLogModal';
+import EditLogModal from './components/logs/EditLogModal';
+import AddWorkerModal from './components/workers/AddWorkerModal';
+import WorkerListModal from './components/workers/WorkerListModal';
 import './App.css';
 
 const App = () => {
@@ -19,6 +22,9 @@ const App = () => {
       <div className="container">
         <AddButton />
         <AddLogModal />
+        <EditLogModal />
+        <AddWorkerModal />
+        <WorkerListModal />
         <Logs />
       </div>
     </Fragment>
