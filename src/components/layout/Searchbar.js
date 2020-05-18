@@ -10,7 +10,12 @@ export const Searchbar = () => (
             <i className="material-icons">search</i>
             <input type="text" style={{ display: 'none' }} />
           </label>
-          <i className="material-icons">close</i>
+          <i
+            className="material-icons"
+            style={{ color: 'rgba(255,255,255,0.7)' }}
+          >
+            close
+          </i>
         </div>
       </form>
     </div>
