@@ -2,24 +2,24 @@
   "logs": [
     {
       "id": 1,
-      "message": "Fixed the car",
-      "attention": "false",
-      "date": "05-05-2020",
-      "worker": "Joseph Greenwald"
+      "message": "Mopped the floor",
+      "attention": false,
+      "worker": "Joseph Greenwald",
+      "date": "2020-05-19T16:15:36.456Z"
     },
     {
       "id": 2,
-      "message": "Oiled grandma's sewing machine",
-      "attention": "true",
-      "date": "05-06-2020",
-      "worker": "Bill Montana"
+      "message": "Changed tires",
+      "attention": true,
+      "worker": "Thomas Seguero",
+      "date": "2020-05-19T16:15:49.080Z"
     },
     {
-      "id": 3,
-      "message": "Made coffee",
-      "attention": "false",
-      "date": "05-07-2020",
-      "worker": "Thomas Seguero"
+      "message": "Drank a double \"Tito's and Soda\"",
+      "attention": true,
+      "worker": "Bertrum Chrysler",
+      "date": "2020-05-19T16:17:55.836Z",
+      "id": 3
     }
   ],
   "workers": [
@@ -37,6 +37,11 @@
       "id": 3,
       "firstName": "Thomas",
       "lastName": "Seguero"
+    },
+    {
+      "firstName": "Bertrum",
+      "lastName": "Chrysler",
+      "id": 4
     }
   ]
 }

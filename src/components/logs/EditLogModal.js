@@ -1,17 +1,40 @@
+/* eslint-disable jsx-a11y/no-onchange */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import M from 'materialize-css/dist/js/materialize.min.js';
+import { updateLog } from '../../actions/logActions';
+import WorkerSelectOptions from '../workers/WorkerSelectOptions';
 
-const EditLogModal = () => {
+const EditLogModal = ({ current, updateLog }) => {
   const [message, setMessage] = useState('');
   const [attention, setAttention] = useState(false);
   const [worker, setWorker] = useState('');
+
+  useEffect(() => {
+    if (current) {
+      setMessage(current.message);
+      setAttention(current.attention);
+      setWorker(current.worker);
+    }
+  }, [current]);
 
   const onSubmit = () => {
     if (message === '' || worker === '') {
       M.toast({ html: 'Please enter a message and worker' });
     } else {
-      console.log(message, worker, attention);
+      const updLog = {
+        id: current.id,
+        message,
+        attention,
+        worker,
+        date: new Date()
+      };
+
+      updateLog(updLog);
+      M.toast({ html: `Log updated by ${worker}` });
+
       setMessage('');
       setWorker('');
       setAttention(false);
@@ -21,7 +44,7 @@ const EditLogModal = () => {
   return (
     <div id="edit-log-modal" className="modal">
       <div className="modal-content">
-        <h4>Enter System Log</h4>
+        <h4>Enter Log</h4>
         <div className="row">
           <div className="input-field">
             <input
@@ -29,11 +52,7 @@ const EditLogModal = () => {
               name="message"
               value={message}
               onChange={e => setMessage(e.target.value)}
-              onBlur={e => setMessage(e.target.value)}
             />
-            <label htmlFor="message" className="active">
-              Log Message
-            </label>
           </div>
           <div className="row">
             <div className="input-field">
@@ -42,14 +61,11 @@ const EditLogModal = () => {
                 value={worker}
                 className="browser-default"
                 onChange={e => setWorker(e.target.value)}
-                onBlur={e => setWorker(e.target.value)}
               >
                 <option value="" disabled>
                   Select Worker
                 </option>
-                <option value="Joseph Greenwald">Joseph Greenwald</option>
-                <option value="Bill Montana">Bill Montana</option>
-                <option value="Thomas Seguero">Thomas Seguero</option>
+                <WorkerSelectOptions />
               </select>
             </div>
           </div>
@@ -64,7 +80,6 @@ const EditLogModal = () => {
                   checked={attention}
                   value={attention}
                   onChange={() => setAttention(!attention)}
-                  onBlur={() => setAttention(!attention)}
                 />
                 <span>Needs Attention</span>
               </label>
@@ -85,4 +100,16 @@ const EditLogModal = () => {
   );
 };
 
-export default EditLogModal;
+EditLogModal.propTypes = {
+  updateLog: PropTypes.func.isRequired,
+  current: PropTypes.object
+};
+
+const mapStateToProps = state => ({
+  current: state.log.current
+});
+
+export default connect(
+  mapStateToProps,
+  { updateLog }
+)(EditLogModal);

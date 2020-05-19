@@ -1,8 +1,12 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import M from 'materialize-css/dist/js/materialize.min.js';
+import { addLog } from '../../actions/logActions';
+import WorkerSelectOptions from '../workers/WorkerSelectOptions';
 
-const AddLogModal = () => {
+const AddLogModal = ({ addLog }) => {
   const [message, setMessage] = useState('');
   const [attention, setAttention] = useState(false);
   const [worker, setWorker] = useState('');
@@ -11,7 +15,16 @@ const AddLogModal = () => {
     if (message === '' || worker === '') {
       M.toast({ html: 'Please enter a message and worker' });
     } else {
-      console.log(message, worker, attention);
+      const newLog = {
+        message,
+        attention,
+        worker,
+        date: new Date()
+      };
+
+      addLog(newLog);
+      M.toast({ html: `Log added by ${worker}` });
+
       setMessage('');
       setWorker('');
       setAttention(false);
@@ -21,7 +34,7 @@ const AddLogModal = () => {
   return (
     <div id="add-log-modal" className="modal">
       <div className="modal-content">
-        <h4>Enter System Log</h4>
+        <h4>Enter Log</h4>
         <div className="row">
           <div className="input-field">
             <input
@@ -46,9 +59,7 @@ const AddLogModal = () => {
                 <option value="" disabled>
                   Select Worker
                 </option>
-                <option value="Joseph Greenwald">Joseph Greenwald</option>
-                <option value="Bill Montana">Bill Montana</option>
-                <option value="Thomas Seguero">Thomas Seguero</option>
+                <WorkerSelectOptions />
               </select>
             </div>
           </div>
@@ -63,7 +74,6 @@ const AddLogModal = () => {
                   checked={attention}
                   value={attention}
                   onChange={() => setAttention(!attention)}
-                  onBlur={() => setAttention(!attention)}
                 />
                 <span>Needs Attention</span>
               </label>
@@ -84,4 +94,11 @@ const AddLogModal = () => {
   );
 };
 
-export default AddLogModal;
+AddLogModal.propTypes = {
+  addLog: PropTypes.func.isRequired
+};
+
+export default connect(
+  null,
+  { addLog }
+)(AddLogModal);

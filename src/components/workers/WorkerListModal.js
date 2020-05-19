@@ -1,19 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import WorkerItem from './WorkerItem';
+import { getWorkers } from '../../actions/workerActions';
 
-const WorkerListModal = () => {
-  const [workers, setWorkers] = useState([]);
-  const [loading, setLoading] = useState(false);
-
-  const getWorkers = async () => {
-    setLoading(true);
-    const response = await fetch('/workers');
-    const data = await response.json();
-
-    setWorkers(data);
-    setLoading(false);
-  };
-
+const WorkerListModal = ({ getWorkers, worker: { workers, loading } }) => {
   useEffect(() => {
     getWorkers();
     // eslint-disable-next-line
@@ -25,6 +16,7 @@ const WorkerListModal = () => {
         <h4>Worker List</h4>
         <ul className="collection">
           {!loading &&
+            workers !== null &&
             workers.map(worker => (
               <WorkerItem worker={worker} key={worker.id} />
             ))}
@@ -34,4 +26,16 @@ const WorkerListModal = () => {
   );
 };
 
-export default WorkerListModal;
+const mapStateToProps = state => ({
+  worker: state.worker
+});
+
+WorkerListModal.propTypes = {
+  worker: PropTypes.object.isRequired,
+  getWorkers: PropTypes.func.isRequired
+};
+
+export default connect(
+  mapStateToProps,
+  { getWorkers }
+)(WorkerListModal);

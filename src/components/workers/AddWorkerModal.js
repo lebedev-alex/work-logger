@@ -1,8 +1,11 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import M from 'materialize-css/dist/js/materialize.min.js';
+import { addWorker } from '../../actions/workerActions';
 
-const AddWorkerModal = () => {
+const AddWorkerModal = ({ addWorker }) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
 
@@ -10,7 +13,13 @@ const AddWorkerModal = () => {
     if (firstName === '' || lastName === '') {
       M.toast({ html: 'Please enter the first and last name' });
     } else {
-      console.log(firstName, lastName);
+      addWorker({
+        firstName,
+        lastName
+      });
+
+      M.toast({ html: `${firstName} ${lastName} was added as a worker` });
+
       setFirstName('');
       setLastName('');
     }
@@ -60,4 +69,11 @@ const AddWorkerModal = () => {
   );
 };
 
-export default AddWorkerModal;
+AddWorkerModal.propTypes = {
+  addWorker: PropTypes.func.isRequired
+};
+
+export default connect(
+  null,
+  { addWorker }
+)(AddWorkerModal);
